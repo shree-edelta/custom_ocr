@@ -14,7 +14,7 @@ K.clear_session()
 gc.collect()
 
 
-with open("new_s_token.pickle", "rb") as handle:
+with open("../model/new_s_token.pickle", "rb") as handle:
     tokenizer = pickle.load(handle)
     
 
@@ -35,7 +35,7 @@ def clean_decoded_output(decoded_seq, index_to_char):
         texts.append(text)
     return texts
 
-data = np.load("ocr_test_unseen.npy", allow_pickle=True).item()
+data = np.load("../model/ocr_test_unseen.npy", allow_pickle=True).item()
 images = data['image']
 label = data['label']
 test_images = np.expand_dims(images, axis=-1).astype(np.float32) 
@@ -55,7 +55,7 @@ def se_block(input_tensor, reduction=16):
     se = layers.Reshape((1, 1, filters))(se)
     return layers.Multiply()([input_tensor, se])
 
-inference_model = load_model("new_data_inference.keras", custom_objects={"SEBlock": se_block})
+inference_model = load_model("../model/new_data_inference.keras", custom_objects={"SEBlock": se_block})
 print(inference_model.summary())
 
 batch_size = 32
