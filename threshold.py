@@ -8,10 +8,10 @@ def convert_to_black_white_pil(image_path, threshold=128):
     bw = img.point(lambda x: 255 if x > threshold else 0, mode='1')  
     return bw
 
-# f_image_folder = 'images/train'
-f_image_folder = 'images/valid'
+f_image_folder = 'images/train'
+# f_image_folder = 'images/valid'
 s_image_folder = 'output'
-output_csv = 'valid.csv'
+output_csv = 'train.csv'
 
 
 for filename in os.listdir(f_image_folder):
@@ -26,9 +26,9 @@ for filename in os.listdir(f_image_folder):
        
         print(processed_result)
         
-# labels = ['NAME','Hobbies','s.', 'BUTTON', 'ALWAYS','for all','NOT','Satani','Shree','Name'] 
+labels = ['NAME','Hobbies','s.', 'BUTTON', 'ALWAYS','for all','NOT','Satani','Shree','Name'] 
 
-labels = ['Button','CONTACT']
+# labels = ['Button','CONTACT']
 
 image_filenames = sorted([
     f for f in os.listdir(f_image_folder)

@@ -3,3 +3,5 @@ images/
 output/
 env/
 model/
+2half_ocr_test.npy
+3half_ocr_train.npy
