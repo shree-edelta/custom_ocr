@@ -8,11 +8,11 @@ from sklearn.model_selection import train_test_split
 image_data = []
 label_data = []
 
-with open("new_s_token.pickle", "rb") as handle:
+with open("../model/new_s_token.pickle", "rb") as handle:
     tokenizer = pickle.load(handle)
 print(tokenizer)
 
-df = pd.read_csv("train.csv")
+df = pd.read_csv("../model/train.csv")
 print(len(df))
 for idx, row in df.iterrows():
     filename = str(row["path"])

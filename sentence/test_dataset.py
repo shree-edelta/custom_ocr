@@ -25,26 +25,28 @@ print(index_to_char)
 def clean_decoded_output(decoded_seq, index_to_char):
     texts = []
     for seq in decoded_seq:
-        # print(seq)
+        # print("seq",seq)
         prev = -1
         text = ''
         for char_idx in seq:
-            if char_idx != -1 and char_idx != prev:
+            # print("char_idx",char_idx)
+            if char_idx != -1 :
                 text += index_to_char.get(char_idx, '')
             prev = char_idx
         texts.append(text)
     return texts
 
-data = np.load("../model/ocr_test_unseen.npy", allow_pickle=True).item()
+data = np.load("clean_ocr_unseen.npy", allow_pickle=True).item()
 images = data['image']
 label = data['label']
+# print(label)
 test_images = np.expand_dims(images, axis=-1).astype(np.float32) 
-print("Test image shape:", images.shape)
+# print("Test image shape:", images.shape)
 
 
 labels = []
 labels.append(clean_decoded_output(label,index_to_char))
-# print("labels....",labels)
+print("labels....",labels)
 
 @tf.keras.utils.register_keras_serializable()
 def se_block(input_tensor, reduction=16):
@@ -60,13 +62,15 @@ print(inference_model.summary())
 
 batch_size = 32
 predictions = inference_model.predict(images, batch_size=batch_size)
+# print(predictions)
 input_length = np.ones(predictions.shape[0]) * predictions.shape[1]
 
 decoded, _ = tf.keras.backend.ctc_decode(
     predictions,
     input_length=input_length,
-    greedy=False, beam_width=10
+    greedy=False
 )
+# print(decoded)
 decoded = decoded[0].numpy()
 # print("Decoded:", decoded)
 
@@ -76,7 +80,7 @@ texts   = clean_decoded_output(decoded, index_to_char)
 decoded_text.append(texts)
 # print(decoded_text)
 
-for i in range(10):
+for i in range(12):
     print(f"Prediction {i+1}: {decoded_text[0][i]} (True: {labels[0][i]})")
 
 df_out = pd.DataFrame({"Prediction": decoded_text})

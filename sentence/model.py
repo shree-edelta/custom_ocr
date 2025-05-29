@@ -178,14 +178,14 @@ def data_generator(images, labels, batch_size, max_label_len):
             valid_labels = []
           
             for img, lbl in zip(batch_images, batch_labels):
-                actual_label = lbl[lbl != 0]  # Remove padding zeros
+                actual_label = lbl[lbl != 0]  
                 if len(actual_label) > 0:
                     valid_images.append(img)
                     valid_labels.append(lbl)
 
             if len(valid_images) == 0:
                 print(f"Skipping batch at index {i} due to all empty labels")
-                continue  # skip this batch
+                continue 
 
             batch_images = np.array(valid_images, dtype=np.float32)
             batch_labels = np.array(valid_labels)

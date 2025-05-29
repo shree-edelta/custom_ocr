@@ -22,10 +22,10 @@ def se_block(input_tensor, reduction=16):
     se = layers.Reshape((1, 1, filters))(se)
     return layers.Multiply()([input_tensor, se])
 
-inference_model = load_model("new_data_inference.keras", custom_objects={"SEBlock": se_block})
+inference_model = load_model("best_inference.keras", custom_objects={"SEBlock": se_block})
 print(inference_model.summary())
 
-with open("new_s_token.pickle", "rb") as handle:
+with open("../model/new_s_token.pickle", "rb") as handle:
     tokenizer = pickle.load(handle)
     
 index_to_char = {value: key for key, value in tokenizer.items()}
@@ -62,7 +62,7 @@ def clean_decoded_output(decoded_seq, index_to_char):
         prev = -1
         text = ''
         for char_idx in seq:
-            if char_idx != -1 and char_idx != prev:
+            if char_idx != -1 :
                 text += index_to_char.get(char_idx, '')
             prev = char_idx
         texts.append(text)

@@ -3,14 +3,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Load the image
-img = cv2.imread('../images/Screenshot 2025-05-15 at 5.57.59 PM.png')
+img = cv2.imread('../output/sname.jpg')
 
 # Convert to grayscale
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # Apply adaptive thresholding to binarize the image
-thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
-                               cv2.THRESH_BINARY_INV, 35, 10)
+thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY_INV, 35, 10)
 
 # Morphological operation to remove horizontal lines
 horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (150, 1))
@@ -37,7 +36,7 @@ x, y, w, h = cv2.boundingRect(coords)
 cropped = result[y:y+h, x:x+w]
 
 # Save or display result
-cv2.imwrite('clean_output.png', cropped)
+cv2.imwrite('clean_output12.png', cropped)
 
 # If using Jupyter or matplotlib:
 # plt.imshow(cropped, cmap='gray')
