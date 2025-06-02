@@ -36,7 +36,7 @@ def clean_decoded_output(decoded_seq, index_to_char):
         texts.append(text)
     return texts
 
-data = np.load("clean_ocr_unseen.npy", allow_pickle=True).item()
+data = np.load("../model/new_ocr_test.npy", allow_pickle=True).item()
 images = data['image']
 label = data['label']
 # print(label)
